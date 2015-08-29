@@ -7,7 +7,16 @@ require 'sinatra/flash'
 require 'sidekiq'
 require 'sidekiq/web'
 require 'sidekiq/api'
+require 'csv'
+require 'time'
+require 'iconv'
+require 'twitter-text'
+require 'nokogiri'
+require 'uri'
+require 'rest_client'
+include Twitter::Extractor
 
+SETTINGS = YAML.load(File.read(File.dirname(__FILE__)+"/settings.yaml"))
 MongoMapper.connection = Mongo::MongoClient.new(SETTINGS["mongo_host"], SETTINGS["mongo_port"], :pool_size => 25, :pool_timeout => 60)
 MongoMapper.database = SETTINGS["mongo_db"]
 
