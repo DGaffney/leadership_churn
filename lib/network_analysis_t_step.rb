@@ -35,7 +35,8 @@ class NetworkAnalysisTStep
   end
 
   def self.store_result(net)
-    StoreStatResultTwo.perform_async(net)
+    tau = net[:tau].nan? ? 0 : net[:tau]
+    StoreStatResultTwo.perform_async(net.merge(tau: tau))
   end
   
   def self.run_by_analytic(hashtag, strftime_template, analytic)
@@ -58,7 +59,7 @@ class NetworkAnalysisTStep
       end
       latest = net
       print "."
-      self.store_result(net) if net[:tau]
+      self.store_result(net.merge(count: 100)) if net[:tau]
     end
   end
   

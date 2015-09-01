@@ -11,7 +11,7 @@ class StatResultTwo
   key :alexa_mean, Float
   key :alexa_max, Float
   key :alexa_sum, Float
-
+  key :count_rank, Integer
   def self.hashtags
     ["baltimoreuprising", "blacklivesmatter", "crimingwhilewhite", "enoughisenough", "ericgarner", "fasttailedgirls", "fergusonreport", "girlslikeus", "michaelbrown", "mynypd", "opferguson", "shutitdown", "solidarityisforwhitewomen", "survivorprivilege", "theemptychair", "trayvonmartin", "whyistayed", "yesallwhitewomen", "yesallwomen", "youoksis"]
   end
