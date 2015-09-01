@@ -35,8 +35,14 @@ class NetworkAnalysisTStep
   end
 
   def self.store_result(net)
-    tau = net[:tau].nan? ? 0 : net[:tau]
-    StoreStatResultTwo.perform_async(net.merge(tau: tau))
+    begin
+      tau = net[:tau].nan? ? 0 : net[:tau]
+      StoreStatResultTwo.perform_async(net.merge(tau: tau))
+    rescue
+      puts "!*"
+      sleep(4)
+      retry
+    end
   end
   
   def self.run_by_analytic(hashtag, strftime_template, analytic)
