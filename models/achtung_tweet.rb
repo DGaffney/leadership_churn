@@ -59,7 +59,7 @@ class AchtungTweet
     filename = Dir[File.dirname(__FILE__) + '/../data/twitter/*.tsv'].select{|x| x.downcase.include?(hashtag)}.first
     Iconv.new('UTF-8','LATIN1').iconv(File.read(filename)).split("\n").collect{|x| row = x.split("\t"); row if !x.empty? && row.length == 12}.compact.collect do |row|
       content = Hash[self.row_keys.zip(row).collect{|k,v| [k, self.process_value(k,v)]}]
-      obj = self.first_or_create(hashtag: hashtag, twitter_id: content[:twitter_id])
+      obj = self.new(hashtag: hashtag, twitter_id: content[:twitter_id])
       self.row_keys.each do |k|
         obj.send(k.to_s+"=", content[k])
       end
