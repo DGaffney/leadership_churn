@@ -15,7 +15,8 @@ class NetworkAnalysisTStep
     network = {}
     cur_strftime = AchtungTweet.where(hashtag: hashtag).order(:published_at).first.published_at.strftime(strftime_template)
     prev_strftime = cur_strftime.dup
-    AchtungTweet.where(hashtag: hashtag).fields(:published_at, :text, :screen_name).order(:published_at).each do |t|
+    tweets =AchtungTweet.where(hashtag: hashtag).fields(:published_at, :text, :screen_name).order(:published_at).to_a;false
+    tweets.each do |t|
       prev_strftime = cur_strftime
       cur_strftime = t.published_at.strftime(strftime_template)
       extract_mentioned_screen_names(t.text).each do |alter|
