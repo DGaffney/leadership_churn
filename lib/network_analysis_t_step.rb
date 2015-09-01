@@ -31,13 +31,13 @@ class NetworkAnalysisTStep
   end
 
   def self.indegree(network, count="all")
-    count == "all" ? network.values.flatten.counts.sort_by{|k,v| v}.reverse.collect(&:first) : network.values.flatten.counts.sort_by{|k,v| v}.reverse.collect(&:first)
+    count == "all" ? network.values.flatten.counts.sort_by{|k,v| v}.reverse.collect(&:first) : network.values.flatten.counts.sort_by{|k,v| v}.reverse.first(count).collect(&:first)
   end
-  
+
   def self.store_result(net)
     month, day, year, hour = net[:end_time].split(/[- ]/)
     end_time = net[:strftime_template].include?("H") ? Time.parse("#{year}-#{month}-#{day} #{hour}:00:00") : Time.parse("#{year}-#{month}-#{day} 00:00:00")
-    sr2 = StatResultTwo.first_or_create(hashtag: net[:hashtag], end_time: end_time, net_statistic: net[:net_statistic], strftime_template: net[:strftime_template])
+    sr2 = StatResultTwo.first_or_create(hashtag: net[:hashtag], end_time: end_time, net_statistic: net[:net_statistic]||"indegree", strftime_template: net[:strftime_template])
     sr2.tau = net[:tau].nan? ? 0 : net[:tau]
     sr2.n = net[:n]
     sr2.index = net[:index]
