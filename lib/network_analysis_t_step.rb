@@ -41,6 +41,9 @@ class NetworkAnalysisTStep
     sr2.n = net[:n]
     sr2.index = net[:index]
     sr2.article_count = MediaCloudArticle.where(hashtag: net[:hashtag], :publish_date.lte => end_time).count
+    sr2.alexa_mean = AlexaRank.mean(net[:hasthag], end_time)
+    sr2.alexa_max = AlexaRank.max(net[:hasthag], end_time)
+    sr2.alexa_sum = AlexaRank.sum(net[:hasthag], end_time)
     sr2.save!
   end
   
@@ -51,8 +54,16 @@ class NetworkAnalysisTStep
       net[:index] = i
       i+=1
       if latest[:end_time] != net[:end_time] && !latest.empty?
-        indegrees = [latest[:network], net[:network]].collect{|n| n[:net_statistic] = analytic ; net[:n] = n.length ; self.send(analytic, n)}
-        net[:tau] = KendallTau.run(*indegrees)
+        if latest[:network] == net[:network]
+          net[:tau] = 1.0
+        else
+          indegrees = [latest[:network], net[:network]].collect{|n| n[:net_statistic] = analytic ; net[:n] = n.length ; self.send(analytic, n, 100)}
+          if indegrees.first == indegrees.last
+            net[:tau] = 1.0
+          else
+            net[:tau] = KendallTau.run(*indegrees)
+          end
+        end
       end
       latest = net
       print "."

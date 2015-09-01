@@ -12,4 +12,22 @@ class AlexaRank
       alexa_rank.save
     end
   end
+  
+  def self.mean(hashtag, end_time)
+    hosts = MediaCloudArticle.where(hashtag: hashtag, :publish_date.lte => end_time).fields(:url).collect{|mca| URI.parse(mca.url).host rescue nil}.compact
+    ranks = Hash[AlexaRank.where(host: hosts).collect{|ar| [ar.host, ar.percentile]}]
+    hosts.length == 0 ? 0 : hosts.collect{|host| ranks[host]}.sum/hosts.length
+  end
+  
+  def self.max(hashtag, end_time)
+    hosts = MediaCloudArticle.where(hashtag: hashtag, :publish_date.lte => end_time).fields(:url).collect{|mca| URI.parse(mca.url).host rescue nil}.compact
+    ranks = Hash[AlexaRank.where(host: hosts).collect{|ar| [ar.host, ar.percentile]}]
+    ranks.values.compact.sort.last
+  end
+  
+  def self.sum(hashtag, end_time)
+    hosts = MediaCloudArticle.where(hashtag: hashtag, :publish_date.lte => end_time).fields(:url).collect{|mca| URI.parse(mca.url).host rescue nil}.compact
+    ranks = Hash[AlexaRank.where(host: hosts).collect{|ar| [ar.host, ar.percentile]}]
+    hosts.collect{|host| ranks[host]}.sum
+  end
 end
