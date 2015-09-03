@@ -35,6 +35,7 @@ class NetworkAnalysisTStep
   end
 
   def self.store_result(net)
+    net.delete(:network)
     begin
       tau = net[:tau].nan? ? 0 : net[:tau]
       StoreStatResultTwo.perform_async(net.merge(tau: tau))

@@ -19,7 +19,12 @@ include Twitter::Extractor
 SETTINGS = YAML.load(File.read(File.dirname(__FILE__)+"/settings.yaml"))
 MongoMapper.connection = Mongo::MongoClient.new(SETTINGS["mongo_host"], SETTINGS["mongo_port"], :pool_size => 25, :pool_timeout => 60)
 MongoMapper.database = SETTINGS["mongo_db"]
-
+Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://192.168.1.141:6379'}
+end
+Sidekiq.configure_client do |config|
+  config.redis = { url: 'redis://192.168.1.141:6379'}
+end
 Dir[File.dirname(__FILE__) + '/extensions/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/handlers/*.rb'].each {|file| require file }
