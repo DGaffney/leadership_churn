@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,theemptychair,%m-%d-%Y,,1.0,2013-08-30 04:00:00 UTC,2013-08-30 04:00:00 UTC,1,0,0.0,,0.0
 indegree,theemptychair,%m-%d-%Y,,1.0,2013-09-25 04:00:00 UTC,2013-09-25 04:00:00 UTC,2,0,0.0,,0.0
 indegree,theemptychair,%m-%d-%Y,,,2013-09-26 04:00:00 UTC,2013-09-26 04:00:00 UTC,,,,,

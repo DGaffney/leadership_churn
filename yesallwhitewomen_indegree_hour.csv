@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,yesallwhitewomen,%m-%d-%Y %H,6,0.8164965809277261,2014-05-26 14:00:00 UTC,2014-05-26 14:00:00 UTC,1,0,0.0,,0.0
 indegree,yesallwhitewomen,%m-%d-%Y %H,7,0.8660254037844387,2014-05-26 19:00:00 UTC,2014-05-26 19:00:00 UTC,2,0,0.0,,0.0
 indegree,yesallwhitewomen,%m-%d-%Y %H,9,0.8,2014-05-26 20:00:00 UTC,2014-05-26 20:00:00 UTC,3,0,0.0,,0.0

@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,mynypd,%m-%d-%Y,7639,0.6455798864557989,2014-04-24 04:00:00 UTC,2014-04-24 04:00:00 UTC,1,286,0.678041941702202,0.9988901220865705,193.24195338512757
 indegree,mynypd,%m-%d-%Y,8571,0.901920438957476,2014-04-25 04:00:00 UTC,2014-04-25 04:00:00 UTC,2,373,0.6885703459716211,0.9988901220865705,256.14816870144307
 indegree,mynypd,%m-%d-%Y,8878,0.9606647034076568,2014-04-26 04:00:00 UTC,2014-04-26 04:00:00 UTC,3,402,0.6900783557200237,0.9988901220865705,276.7214206437295

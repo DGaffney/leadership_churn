@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,yesallwhitewomen,%m-%d-%Y,379,0.32519162496135656,2014-05-28 04:00:00 UTC,2014-05-28 04:00:00 UTC,1,1,0.26137624861265263,0.26137624861265263,0.26137624861265263
 indegree,yesallwhitewomen,%m-%d-%Y,466,0.8802256138022562,2014-05-29 04:00:00 UTC,2014-05-29 04:00:00 UTC,2,1,0.26137624861265263,0.26137624861265263,0.26137624861265263
 indegree,yesallwhitewomen,%m-%d-%Y,546,0.8388827905842176,2014-05-30 04:00:00 UTC,2014-05-30 04:00:00 UTC,3,2,0.22697003329633741,0.26137624861265263,0.45394006659267483

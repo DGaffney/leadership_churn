@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,opferguson,%m-%d-%Y,446,0.07005694441040587,2014-08-12 04:00:00 UTC,2014-08-12 04:00:00 UTC,1,11,0.6385329431944305,0.978912319644839,7.0238623751387355
 indegree,opferguson,%m-%d-%Y,1002,0.6832361146335277,2014-08-13 04:00:00 UTC,2014-08-13 04:00:00 UTC,2,15,0.5920088790233075,0.978912319644839,8.880133185349612
 indegree,opferguson,%m-%d-%Y,1439,0.6673654786862334,2014-08-14 04:00:00 UTC,2014-08-14 04:00:00 UTC,3,26,0.6258644241441134,0.9988901220865705,16.272475027746946

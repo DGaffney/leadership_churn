@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,solidarityisforwhitewomen,%m-%d-%Y,3278,0.6873685912987223,2013-08-14 04:00:00 UTC,2013-08-14 04:00:00 UTC,1,5,0.6914539400665928,0.9988901220865705,3.4572697003329638
 indegree,solidarityisforwhitewomen,%m-%d-%Y,3747,0.9323835104519445,2013-08-15 04:00:00 UTC,2013-08-15 04:00:00 UTC,2,9,0.6016771488469601,0.9988901220865705,5.415094339622641
 indegree,solidarityisforwhitewomen,%m-%d-%Y,3835,0.9792847572915593,2013-08-16 04:00:00 UTC,2013-08-16 04:00:00 UTC,3,10,0.5750277469478358,0.9988901220865705,5.750277469478357

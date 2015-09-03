@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,enoughisenough,%m-%d-%Y,15,0.9428090415820635,2013-07-11 04:00:00 UTC,2013-07-11 04:00:00 UTC,1,17,0.7265783116798329,0.9988901220865705,12.351831298557158
 indegree,enoughisenough,%m-%d-%Y,29,0.9519302798738806,2013-07-12 04:00:00 UTC,2013-07-12 04:00:00 UTC,2,17,0.7265783116798329,0.9988901220865705,12.351831298557158
 indegree,enoughisenough,%m-%d-%Y,39,0.9941002434954168,2013-07-13 04:00:00 UTC,2013-07-13 04:00:00 UTC,3,17,0.7265783116798329,0.9988901220865705,12.351831298557158

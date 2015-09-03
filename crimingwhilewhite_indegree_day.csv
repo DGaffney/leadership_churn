@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,crimingwhilewhite,%m-%d-%Y,17305,-0.05805805805805806,2014-12-05 05:00:00 UTC,2014-12-05 05:00:00 UTC,1,114,0.7283817201160505,0.9988901220865705,83.03551609322976
 indegree,crimingwhilewhite,%m-%d-%Y,21574,0.8590447273151933,2014-12-06 05:00:00 UTC,2014-12-06 05:00:00 UTC,2,196,0.7249144940995267,0.9988901220865705,142.08324084350724
 indegree,crimingwhilewhite,%m-%d-%Y,22527,0.9743424584004294,2014-12-07 05:00:00 UTC,2014-12-07 05:00:00 UTC,3,204,0.7243612761419772,0.9988901220865705,147.76970033296334

@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,michaelbrown,%m-%d-%Y,3,0.8164965809277261,2013-07-21 04:00:00 UTC,2013-07-21 04:00:00 UTC,1,4,0.6750832408435072,0.9778024417314095,2.700332963374029
 indegree,michaelbrown,%m-%d-%Y,3,1.0,2013-07-23 04:00:00 UTC,2013-07-23 04:00:00 UTC,2,4,0.6750832408435072,0.9778024417314095,2.700332963374029
 indegree,michaelbrown,%m-%d-%Y,4,0.9258200997725514,2013-07-25 04:00:00 UTC,2013-07-25 04:00:00 UTC,3,4,0.6750832408435072,0.9778024417314095,2.700332963374029

@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,fasttailedgirls,%m-%d-%Y %H,7,0.8164965809277261,2013-11-30 23:00:00 UTC,2013-11-30 23:00:00 UTC,1,1,0.2458379578246393,0.2458379578246393,0.2458379578246393
 indegree,fasttailedgirls,%m-%d-%Y %H,8,0.9258200997725514,2013-12-01 00:00:00 UTC,2013-12-01 00:00:00 UTC,2,1,0.2458379578246393,0.2458379578246393,0.2458379578246393
 indegree,fasttailedgirls,%m-%d-%Y %H,101,0.15972122010071818,2013-12-01 01:00:00 UTC,2013-12-01 01:00:00 UTC,3,1,0.2458379578246393,0.2458379578246393,0.2458379578246393

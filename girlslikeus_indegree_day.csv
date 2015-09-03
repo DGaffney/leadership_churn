@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,girlslikeus,%m-%d-%Y,19,0.9710083124552245,2013-07-11 04:00:00 UTC,2013-07-11 04:00:00 UTC,1,4,0.7837125416204216,0.9988901220865705,3.1348501664816864
 indegree,girlslikeus,%m-%d-%Y,23,0.936358732947836,2013-07-12 04:00:00 UTC,2013-07-12 04:00:00 UTC,2,4,0.7837125416204216,0.9988901220865705,3.1348501664816864
 indegree,girlslikeus,%m-%d-%Y,28,0.9151400217290875,2013-07-13 04:00:00 UTC,2013-07-13 04:00:00 UTC,3,4,0.7837125416204216,0.9988901220865705,3.1348501664816864

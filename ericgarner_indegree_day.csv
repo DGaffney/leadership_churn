@@ -1,4 +1,4 @@
-statistic,hashtag,strftime_template,n,tau,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
+statistic,hashtag,strftime_template,n,tau,start_time,end_time,index,article_count,alexa_mean,alexa_max,alexa_sum
 indegree,ericgarner,%m-%d-%Y,148,-0.17277368511627203,2014-07-19 04:00:00 UTC,2014-07-19 04:00:00 UTC,1,4,0.7327968923418424,0.9988901220865705,2.9311875693673697
 indegree,ericgarner,%m-%d-%Y,491,0.5292899631306167,2014-07-20 04:00:00 UTC,2014-07-20 04:00:00 UTC,2,4,0.7327968923418424,0.9988901220865705,2.9311875693673697
 indegree,ericgarner,%m-%d-%Y,934,0.711897738446411,2014-07-21 04:00:00 UTC,2014-07-21 04:00:00 UTC,3,4,0.7327968923418424,0.9988901220865705,2.9311875693673697
