@@ -62,8 +62,10 @@ GEM
     dotenv (2.0.2)
     hitimes (1.2.2)
     i18n (0.7.0)
+    iconv (1.0.4)
     json (1.8.3)
     method_source (0.8.2)
+    mini_portile (0.6.2)
     minitest (5.8.0)
     mongo (1.12.3)
       bson (= 1.12.3)
@@ -73,6 +75,9 @@ GEM
       mongo (~> 1.8)
       plucky (~> 0.6.5)
     nenv (0.2.0)
+    netrc (0.7.9)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
     oauth (0.4.7)
     plucky (0.6.6)
       mongo (~> 1.5)
@@ -90,6 +95,8 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    rest_client (1.8.3)
+      netrc (~> 0.7.7)
     ripl (0.7.1)
       bond (~> 0.5.1)
     ripl-multi_line (0.3.1)
@@ -121,8 +128,13 @@ GEM
       ripl-multi_line (>= 0.2.4)
       ripl-rack (>= 0.2.0)
       sinatra (>= 1.2.1)
+    twitter-text (1.12.0)
+      unf (~> 0.1.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
 
 PLATFORMS
   ruby
@@ -130,14 +142,18 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.1)
   bson_ext
+  iconv
   json
   mongo_mapper
+  nokogiri
   oauth
   pry
   rack (~> 1.4.5)
   rack-ssl-enforcer (~> 0.2.5)
   rake
+  rest_client
   sidekiq (= 2.15.1)
   sinatra
   sinatra-flash (~> 0.3.0)
   tux
+  twitter-text
