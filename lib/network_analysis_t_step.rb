@@ -69,7 +69,7 @@ class NetworkAnalysisTStep
       i = 0
       self.full_indegree(net[:network]).each do |account, degree|
         i += 1
-        record = {hashtag: hashtag, timestamp: time, strftime_template: strftime_template, metric_value: degree, metric_name: analytic, metric_rank: i, first_seen: witness_me[account], first_posted: shiny_and_chrome[account], has_posted_yet: !shiny_and_chrome[account].nil?}
+        record = {screen_name: account, hashtag: hashtag, timestamp: time, strftime_template: strftime_template, metric_value: degree, metric_name: analytic, metric_rank: i, first_seen: witness_me[account], first_posted: shiny_and_chrome[account], has_posted_yet: !shiny_and_chrome[account].nil?}
         record[:total_seen_lifespan] = time-record[:first_seen] if record[:first_seen]
         record[:total_posted_lifespan] = time-record[:first_posted] if record[:first_posted]
         StoreSurvivalAnalysis.perform_async(record)

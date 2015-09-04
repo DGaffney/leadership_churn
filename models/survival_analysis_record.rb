@@ -1,5 +1,6 @@
 class SurvivalAnalysisRecord
   include MongoMapper::Document
+  key :screen_name, String
   key :hashtag, String
   key :timestamp, Time
   key :strftime_template, String
