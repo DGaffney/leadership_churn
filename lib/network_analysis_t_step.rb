@@ -34,6 +34,10 @@ class NetworkAnalysisTStep
     count == "all" ? network.values.flatten.counts.sort_by{|k,v| v}.reverse.collect(&:first) : network.values.flatten.counts.sort_by{|k,v| v}.reverse.first(count).collect(&:first)
   end
 
+  def self.full_indegree(network, count="all")
+    count == "all" ? Hash[network.values.flatten.counts.sort_by{|k,v| v}.reverse] : Hash[network.values.flatten.counts.sort_by{|k,v| v}.reverse.first(count)]
+  end
+
   def self.store_result(net)
     net.delete(:network)
     begin
@@ -46,7 +50,34 @@ class NetworkAnalysisTStep
     end
   end
   
-  def self.run_by_analytic(hashtag, strftime_template, analytic)
+  def self.rank_by_analytic(hashtag, strftime_template, analytic)
+    #first seen
+    witness_me = {}
+    #first posted
+    shiny_and_chrome = {}
+    self.network_by_t_step(hashtag, strftime_template) do |net|
+      month, day, year, hour = net[:end_time].split(/[- ]/)
+      time = net[:strftime_template].include?("H") ? Time.parse("#{year}-#{month}-#{day} #{hour}:00:00 +0000") : Time.parse("#{year}-#{month}-#{day} 00:00:00 +0000")
+      uniq_posted_accounts = net[:network].values.flatten.uniq
+      all_accounts = uniq_posted_accounts|net[:network].keys
+      uniq_posted_accounts.each do |acct|
+        shiny_and_chrome[acct] ||= time
+      end
+      all_accounts.each do |acct|
+        witness_me[acct] ||= time
+      end
+      i = 0
+      self.full_indegree(net[:network]).each do |account, degree|
+        i += 1
+        record = {hashtag: hashtag, timestamp: time, strftime_template: strftime_template, metric_value: degree, metric_name: analytic, metric_rank: i, first_seen: witness_me[account], first_posted: shiny_and_chrome[account], has_posted_yet: !shiny_and_chrome[account].nil?}
+        record[:total_seen_lifespan] = time-record[:first_seen] if record[:first_seen]
+        record[:total_posted_lifespan] = time-record[:first_posted] if record[:first_posted]
+        StoreSurvivalAnalysis.perform_async(record)
+      end
+    end
+  end
+
+  def self.tau_by_analytic(hashtag, strftime_template, analytic)
     latest = {}
     i = 0
     self.network_by_t_step(hashtag, strftime_template) do |net|
@@ -70,12 +101,23 @@ class NetworkAnalysisTStep
     end
   end
   
-  def self.run_all
+  def self.run_all_tau
     self.hashtags.each do |hashtag|
       self.strftimes.each do |strftime|
         self.analytics.each do |analytic|
           puts [hashtag, strftime, analytic].inspect
           ChurnRunner.perform_async(hashtag, strftime, analytic)
+        end
+      end
+    end
+  end
+
+  def self.run_all_survival
+    self.hashtags.each do |hashtag|
+      self.strftimes.each do |strftime|
+        self.analytics.each do |analytic|
+          puts [hashtag, strftime, analytic].inspect
+          SurvivalRunner.perform_async(hashtag, strftime, analytic)
         end
       end
     end
