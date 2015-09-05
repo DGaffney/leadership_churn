@@ -72,7 +72,7 @@ class NetworkAnalysisTStep
         record = {screen_name: account, hashtag: hashtag, timestamp: time, strftime_template: strftime_template, metric_value: degree, metric_name: analytic, metric_rank: i, first_seen: witness_me[account], first_posted: shiny_and_chrome[account], has_posted_yet: !shiny_and_chrome[account].nil?}
         record[:total_seen_lifespan] = time-record[:first_seen] if record[:first_seen]
         record[:total_posted_lifespan] = time-record[:first_posted] if record[:first_posted]
-        StoreSurvivalAnalysis.perform_async(record)
+        StoreSurvivalAnalysis.perform_async(record) if SurvivalAnalysisRecord.first(screen_name: record[:screen_name], hashtag: record[:hashtag], timestamp: record[:timestamp], strftime: record[:strftime_template], metric_name: record[:metric_name]).nil?
       end
     end
   end

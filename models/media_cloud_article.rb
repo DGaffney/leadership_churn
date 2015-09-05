@@ -46,5 +46,9 @@ class MediaCloudArticle
   def self.process_files
     Dir[File.dirname(__FILE__) + '/../data/media_cloud/*.csv'].each {|filename| self.process_file(filename) }
   end
+  
+  def alexa_percentile
+    AlexaRank.where(host: URI.parse(self.url).host).first.percentile rescue nil
+  end
 end
 

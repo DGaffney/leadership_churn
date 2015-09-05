@@ -3,6 +3,7 @@ class AlexaRank
   key :host, String
   key :value, Integer
   key :percentile, Float
+
   def self.percentiles
     ars = AlexaRank.to_a
     values = ars.collect(&:value).compact.sort.reverse
