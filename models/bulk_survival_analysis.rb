@@ -3,5 +3,5 @@ class BulkSurvivalAnalysis
   key :hashtag, String
   key :timestamp, Time
   key :strftime_template, String
-  key :results, String
+  key :results, Hash
 end
