@@ -67,13 +67,7 @@ class NetworkAnalysisTStep
         witness_me[acct] ||= time
       end
       i = 0
-      self.full_indegree(net[:network]).each do |account, degree|
-        i += 1
-        record = {screen_name: account, hashtag: hashtag, timestamp: time, strftime_template: strftime_template, metric_value: degree, metric_name: analytic, metric_rank: i, first_seen: witness_me[account], first_posted: shiny_and_chrome[account], has_posted_yet: !shiny_and_chrome[account].nil?}
-        record[:total_seen_lifespan] = time-record[:first_seen] if record[:first_seen]
-        record[:total_posted_lifespan] = time-record[:first_posted] if record[:first_posted]
-        StoreSurvivalAnalysis.perform_async(record) if SurvivalAnalysisRecord.first(screen_name: record[:screen_name], hashtag: record[:hashtag], timestamp: record[:timestamp], strftime: record[:strftime_template], metric_name: record[:metric_name]).nil?
-      end
+      StoreSurvivalAnalysis.perform_async(hashtag: hashtag, timestamp: time, strftime_template: strftime_template, results: self.full_indegree(net[:network]).to_a.first(1000).collect{|k,v| i+=1;[k, {metric_value: v, metric_rank: i, first_seen: witness_me[k], first_posted: shiny_and_chrome[k], has_posted_yet: !shiny_and_chrome[k].nil?, total_seen_lifespan: time-witness_me[k] if witness_me[k], total_posted_lifespan: time-shiny_and_chrome[k] if shiny_and_chrome[k]}]})
     end
   end
 
