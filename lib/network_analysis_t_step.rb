@@ -67,7 +67,7 @@ class NetworkAnalysisTStep
         witness_me[acct] ||= time
       end
       i = 0
-      StoreSurvivalAnalysis.perform_async(hashtag: hashtag, timestamp: time, strftime_template: strftime_template, results: self.full_indegree(net[:network]).to_a.first(1000).collect{|k,v| i+=1;[k, {metric_value: v, metric_rank: i, first_seen: witness_me[k], first_posted: shiny_and_chrome[k], has_posted_yet: !shiny_and_chrome[k].nil?, total_seen_lifespan: time-witness_me[k] if witness_me[k], total_posted_lifespan: time-shiny_and_chrome[k] if shiny_and_chrome[k]}]})
+      StoreSurvivalAnalysis.perform_async(hashtag: hashtag, timestamp: time, strftime_template: strftime_template, results: self.full_indegree(net[:network]).to_a.first(1000).collect{|k,v| i+=1; total_posted_lifespan = shiny_and_chrome[k].nil? nil : time-shiny_and_chrome[k]; total_seen_lifespan = witness_me[k].nil? ? nil : time-witness_me[k]; [k, {metric_value: v, metric_rank: i, first_seen: witness_me[k], first_posted: shiny_and_chrome[k], has_posted_yet: !shiny_and_chrome[k].nil?, total_seen_lifespan: total_seen_lifespan, total_posted_lifespan: total_posted_lifespan}]})
     end
   end
 
