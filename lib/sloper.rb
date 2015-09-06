@@ -97,4 +97,18 @@ class MediaVolatility
   key :time, Time
   key :type, String
   key :score, Float
+  
+  def self.types
+    ["raw", "alexa"]
+  end
+
+  def self.maximum(hashtag, strftime)
+    Hash[self.types.collect{|t| [t, self.where(hashtag: hashtag, strftime: strftime, type: t).order(:score.desc).first]}]
+  end
+  
+  def self.values_at(hashtag, strftime, time)
+    Hash[self.types.collect{|t| [t, self.where(hashtag: hashtag, strftime: strftime, type: t, :time.lte => time).order(:time.desc).first]}]
+  end
 end
+
+# MediaVolatility.ensure_index([[:hashtag, 1], [:strftime, 1], [:type, 1]])
