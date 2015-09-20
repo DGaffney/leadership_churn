@@ -25,7 +25,7 @@ class ComparativeLeaders
     AchtungTweet.where(hashtag: hashtag).order(:published_at).offset(offset).first.published_at
   end
 
-  def self.network_to_point(hashtag, time)
+  def network_to_point(hashtag, time)
     edges = {}
     existing_participants = AchtungTweet.where(hashtag: hashtag, :published_at.lte => time).fields(:screen_name).collect(&:screen_name)
     AchtungTweet.where(hashtag: hashtag, :published_at.lte => time).each do |at|
