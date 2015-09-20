@@ -65,7 +65,7 @@ class ComparativeLeaders
     edges.sort_by{|k,v| v.length}.reverse.first(limit).collect(&:first)
   end
 
-  def times(hashtag)
+  def self.times(hashtag)
     times = []
     (self.first_tweet_time(hashtag).to_datetime.to_i..self.last_tweet_time(hashtag).to_datetime.to_i).step(1.day) do |date|
       times << Time.at(date)
