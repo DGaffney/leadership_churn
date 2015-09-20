@@ -19,9 +19,9 @@ class AchtungTweet
   end
 
   def self.process_row(row, hashtag)
-    content = Hash[self.row_keys.zip(row).collect{|k,v| [k, self.process_value(k,v)]}]
-    obj = self.first_or_create(hashtag: hashtag, twitter_id: content[:twitter_id])
-    self.row_keys.each do |k|
+    content = Hash[AchtungTweet.row_keys.zip(row).collect{|k,v| [k, AchtungTweet.process_value(k,v)]}]
+    obj = AchtungTweet.first_or_create(hashtag: hashtag, twitter_id: content[:twitter_id])
+    AchtungTweet.row_keys.each do |k|
       obj.send(k.to_s+"=", content[k])
     end
     obj.save!
@@ -51,7 +51,7 @@ class AchtungTweet
 
   def self.process_file(filename)
     Iconv.new('UTF-8','LATIN1').iconv(File.read(filename)).split("\n").collect{|x| row = x.split("\t"); row if !x.empty? && row.length == 12}.compact.each do |row|
-      self.process_row(row, filename.split("/").last.split("_").first.gsub("#", "").downcase)
+      AchtungTweet.process_row(row, filename.split("/").last.split("_").first.gsub("#", "").downcase)
     end
   end
 
