@@ -1,3 +1,10 @@
+class AddMentionedUsers
+  def perform(id)
+    t = Tweet.find(id)
+    t.mentioned_users = extract_mentioned_screen_names(t.text)
+    t.save!
+  end
+end
 class AchtungTweet
   include MongoMapper::Document
   key :hashtag, String
