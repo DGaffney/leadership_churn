@@ -74,10 +74,11 @@ class ComparativeLeaders
   end
 
   def perform(hashtag, time, pre_set, post_set, index)
+    tie = Time.parse(time)
     net = network_to_point(hashtag, time)
     total = net.values.collect(&:count).sum
     pre_set.each do |screen_name|
-      cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, end_time: Time.parse(end_time), pre_media: true)
+      cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, end_time: time, pre_media: true)
       count = net[screen_name].length rescue 0
       cl.retweet_proportion = count/total
       cl.log_retweet_proportion = total == 0 ? 0 : Math.log(count/total)
@@ -85,7 +86,7 @@ class ComparativeLeaders
       cl.save!      
     end
     post_set.each do |screen_name|
-      cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, end_time: Time.parse(end_time), pre_media: false)
+      cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, end_time: time, pre_media: false)
       count = net[screen_name].length rescue 0
       cl.retweet_proportion = count/total
       cl.log_retweet_proportion = total == 0 ? 0 : Math.log(count/total)
