@@ -2,10 +2,13 @@ class AddMentionedUsers
   include Sidekiq::Worker
   sidekiq_options :queue => :add_mentioned_users
   def perform(id)
-    t = Tweet.find(id)
+    t = AchtungTweet.find(id)
     t.mentioned_users = extract_mentioned_screen_names(t.text)
     t.save!
   end
+end
+AchtungTweet.fields(:_id).each do |t|
+  AddMentionedUsers.perform_async(t.id)
 end
 class AchtungTweet
   include MongoMapper::Document
