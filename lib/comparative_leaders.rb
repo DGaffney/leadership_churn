@@ -1,7 +1,6 @@
 class ComparativeLeaders
   include MongoMapper::Document
   include Sidekiq::Worker
-  key :start_time, Time
   key :end_time, Time
   key :hashtag, String
   key :screen_name, String
@@ -74,12 +73,25 @@ class ComparativeLeaders
     times
   end
 
-  def perform(screen_name, hashtag, start_time, end_time, pre_media, index)
-    cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, start_time: Time.parse(start_time), end_time: Time.parse(end_time), pre_media: pre_media)
-    cl.retweet_proportion = calculate_mention_proportion(screen_name, hashtag, Time.parse(end_time))
-    cl.log_retweet_proportion = cl.retweet_proportion == 0 ? 0 : Math.log(cl.retweet_proportion)
-    cl.index = index
-    cl.save!
+  def perform(hashtag, time, pre_set, post_set, index)
+    net = network_to_point(hashtag, time)
+    total = net.values.collect(&:count).sum
+    pre_set.each do |screen_name|
+      cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, end_time: Time.parse(end_time), pre_media: true)
+      count = net[screen_name].length rescue 0
+      cl.retweet_proportion = count/total
+      cl.log_retweet_proportion = total == 0 ? 0 : Math.log(count/total)
+      cl.index = index
+      cl.save!      
+    end
+    post_set.each do |screen_name|
+      cl = ComparativeLeaders.first_or_create(screen_name: screen_name, hashtag: hashtag, end_time: Time.parse(end_time), pre_media: false)
+      count = net[screen_name].length rescue 0
+      cl.retweet_proportion = count/total
+      cl.log_retweet_proportion = total == 0 ? 0 : Math.log(count/total)
+      cl.index = index
+      cl.save!      
+    end
   end
 
   def calculate_mention_proportion(screen_name, hashtag, time)
@@ -90,6 +102,7 @@ class ComparativeLeaders
 
   def self.kickoff_all
     ["baltimoreuprising", "blacklivesmatter", "crimingwhilewhite", "enoughisenough", "ericgarner", "fasttailedgirls", "fergusonreport", "girlslikeus", "michaelbrown", "mynypd", "opferguson", "shutitdown", "solidarityisforwhitewomen", "survivorprivilege", "theemptychair", "trayvonmartin", "whyistayed", "yesallwhitewomen", "yesallwomen", "youoksis"].each do |hashtag|
+      puts hashtag
       self.kickoff(hashtag)
     end
   end
@@ -98,19 +111,10 @@ class ComparativeLeaders
     pre_set = self.top_indegree(self.network_before_article(hashtag))
     post_set = self.top_indegree(self.network_after_article(hashtag))-pre_set
     times = times(hashtag)
-    pre_set.each do |user|
-      index = 0
-      times[1..-1].each do |t|
-        ComparativeLeaders.perform_async(user, hashtag, Time.parse(times.first.strftime("%Y-%m-%d 00:00:00 +0000")), Time.parse(t.strftime("%Y-%m-%d 00:00:00 +0000")), true, index)
-        index += 1
-      end
-    end
-    post_set.each do |user|
-      index = 0
-      times[1..-1].each do |t|
-        ComparativeLeaders.perform_async(user, hashtag, Time.parse(times.first.strftime("%Y-%m-%d 00:00:00 +0000")), Time.parse(t.strftime("%Y-%m-%d 00:00:00 +0000")), false, index)
-        index += 1
-      end
+    index = 0
+    times.each do |t|
+      ComparativeLeaders.perform_async(hashtag, Time.parse(t.strftime("%Y-%m-%d 00:00:00 +0000")), pre_set, post_set, index)
+      index += 1
     end
   end
 end
