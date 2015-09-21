@@ -7,9 +7,6 @@ class AddMentionedUsers
     t.save!
   end
 end
-AchtungTweet.fields(:_id).each do |t|
-  AddMentionedUsers.perform_async(t.id)
-end
 class AchtungTweet
   include MongoMapper::Document
   key :hashtag, String
