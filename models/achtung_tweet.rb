@@ -1,4 +1,6 @@
 class AddMentionedUsers
+  include Sidekiq::Worker
+  sidekiq_options :queue => :add_mentioned_users
   def perform(id)
     t = Tweet.find(id)
     t.mentioned_users = extract_mentioned_screen_names(t.text)
