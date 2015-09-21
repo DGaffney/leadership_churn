@@ -13,7 +13,7 @@ class AchtungTweet
   key :text, String
   key :profile_name, String
   key :screen_name, String
-
+  key :mentioned_users, Array
   def self.row_keys
     [:twitter_id, :user_id, :published_at, :in_reply_to_twitter_id, :in_reply_to_user_id, :source, :truncated, :geotag, :location, :text, :profile_name, :screen_name]
   end
