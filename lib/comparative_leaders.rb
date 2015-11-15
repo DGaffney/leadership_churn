@@ -118,4 +118,37 @@ class ComparativeLeaders
       index += 1
     end
   end
+  
+  def self.generate_csvs
+    csvs = {}
+    ["baltimoreuprising", "blacklivesmatter", "crimingwhilewhite", "enoughisenough", "ericgarner", "fasttailedgirls", "fergusonreport", "girlslikeus", "michaelbrown", "mynypd", "opferguson", "shutitdown", "solidarityisforwhitewomen", "survivorprivilege", "theemptychair", "trayvonmartin", "whyistayed", "yesallwhitewomen", "yesallwomen", "youoksis"].each do |hashtag|
+      indices = ComparativeLeaders.where(hashtag: hashtag).distinct(:index).sort
+      csvs[hashtag] = CSV.open("mention_proportions_#{hashtag}.csv", "w")
+      csvs[hashtag] << ["index", "pre_avg", "post_avg", "pre_min", "pre_max", "post_min", "post_max", "log_pre_avg", "log_post_avg", "log_pre_min", "log_pre_max", "log_post_min", "log_post_max", "pre_n", "post_n", "time"]
+      indices.each do |index|
+        pre = ComparativeLeaders.where(hashtag: hashtag, index: index, pre_media: true).to_a
+        post = ComparativeLeaders.where(hashtag: hashtag, index: index, pre_media: false).to_a
+        pre_avg = pre.collect(&:retweet_proportion).average
+        pre_min = pre.collect(&:retweet_proportion).min
+        pre_max = pre.collect(&:retweet_proportion).max
+        pre_n = pre.count
+        post_avg = post.collect(&:retweet_proportion).average
+        post_min = post.collect(&:retweet_proportion).min
+        post_max = post.collect(&:retweet_proportion).max
+        post_n = post.count
+        log_pre_avg = pre.collect(&:log_retweet_proportion).average
+        log_pre_min = pre.collect(&:log_retweet_proportion).min
+        log_pre_max = pre.collect(&:log_retweet_proportion).max
+        log_post_avg = post.collect(&:log_retweet_proportion).average
+        log_post_min = post.collect(&:log_retweet_proportion).min
+        log_post_max = post.collect(&:log_retweet_proportion).max
+        csvs[hashtag] << [index, pre_avg, post_avg, pre_min, pre_max, post_min, post_max, log_pre_avg, log_post_avg, log_pre_min, log_pre_max, log_post_min, log_post_max, pre_n, post_n, [pre|post].flatten.first.end_time]
+      end
+      csvs[hashtag].close
+    end
+  end
 end
+
+
+
+
