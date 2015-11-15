@@ -13,22 +13,25 @@ class ProcessCSV
   def perform(filename)
     rows = CSV.read(filename);false
     hashtag = filename.split("/").last.split(".").first.downcase
-    queries = []
-    ready = rows.collect{|row| r = AchtungTweet.hashed_row(row, hashtag); queries << {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}; r};false
-    existing = AchtungTweet.where("$or" => queries).collect{|r| {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}};false
-    to_write = [];false
-    ready.each do |row|
-      to_write << row if !existing.include?({twitter_id: row[:twitter_id], hashtag: row[:hashtag]})
-    end;false
-    AchtungTweet.collection.insert(to_write.uniq)
+    rows.each_slice(10000) do |slice|
+      queries = []
+      ready = slice.collect{|row| r = AchtungTweet.hashed_row(row, hashtag); queries << {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}; r};false
+      existing = AchtungTweet.where("$or" => queries).collect{|r| {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}};false
+      to_write = [];false
+      ready.each do |row|
+        to_write << row if !existing.include?({twitter_id: row[:twitter_id], hashtag: row[:hashtag]})
+      end;false
+      AchtungTweet.collection.insert(to_write.uniq)
+    end
   end
   
   def self.kickoff
-    Dir[File.dirname(__FILE__) + '/home/dgaff/Code/leadership_churn/data/twitter_new/*.csv'].each do |filename|
+    Dir['/home/dgaff/Code/leadership_churn/data/twitter_new/*.csv'].each do |filename|
       ProcessCSV.perform_async(filename)
     end
   end
 end
+
 class AchtungTweet
   include MongoMapper::Document
   key :hashtag, String
@@ -45,6 +48,7 @@ class AchtungTweet
   key :profile_name, String
   key :screen_name, String
   key :mentioned_users, Array
+  attr_accessor :dataset
   def self.row_keys
     [:twitter_id, :user_id, :published_at, :in_reply_to_twitter_id, :in_reply_to_user_id, :source, :truncated, :geotag, :location, :text, :profile_name, :screen_name]
   end
