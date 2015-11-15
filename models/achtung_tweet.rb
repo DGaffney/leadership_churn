@@ -138,9 +138,10 @@ class AchtungTweet
       data.each do |row|
         extract_hashtags(row[9]).each do |hashtag|
           if relevant_hashtags.include?(hashtag.downcase)
-          csv = CSV.open("/home/dgaff/Code/leadership_churn/data/twitter_new/"+hashtag+".csv", "a+")
-          csv << row
-          csv.close
+            csv = CSV.open("/home/dgaff/Code/leadership_churn/data/twitter_new/"+hashtag+".csv", "a+")
+            csv << row
+            csv.close
+          end
         end
       end
     end
