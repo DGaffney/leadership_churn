@@ -18,7 +18,7 @@ class ProcessCSV
       rows << row
       if rows.length >= 10000
         queries = []
-        ready = slice.collect{|row| r = AchtungTweet.hashed_row(row, hashtag); queries << {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}; r};false
+        ready = rows.collect{|row| r = AchtungTweet.hashed_row(row, hashtag); queries << {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}; r};false
         existing = AchtungTweet.where("$or" => queries).collect{|r| {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}};false
         to_write = [];false
         ready.each do |row|
@@ -27,6 +27,14 @@ class ProcessCSV
         AchtungTweet.collection.insert(to_write.uniq)
         rows = []
       end
+      queries = []
+      ready = rows.collect{|row| r = AchtungTweet.hashed_row(row, hashtag); queries << {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}; r};false
+      existing = AchtungTweet.where("$or" => queries).collect{|r| {twitter_id: r[:twitter_id], hashtag: r[:hashtag]}};false
+      to_write = [];false
+      ready.each do |row|
+        to_write << row if !existing.include?({twitter_id: row[:twitter_id], hashtag: row[:hashtag]})
+      end;false
+      AchtungTweet.collection.insert(to_write.uniq)
     end
   end
   
